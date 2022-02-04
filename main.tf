@@ -51,7 +51,7 @@ resource "aws_s3_bucket_object" "lambda_files" {
 
 
 resource "aws_lambda_function" "function" {
-  function_name = "${var.function_name}"
+  function_name = var.function_name
   s3_bucket = aws_s3_bucket.code_bucket[0].id
   s3_key    = var.s3_key
 
