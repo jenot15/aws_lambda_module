@@ -40,7 +40,7 @@ data "archive_file" "lambda_files" {
 }
 
 resource "aws_s3_bucket_object" "lambda_files" {
-  bucket = aws_s3_bucket.code_bucket.id
+  bucket = aws_s3_bucket.code_bucket[0].id
 
   key    = "${var.lambda_code_path}/${var.function_name}.zip"
   source = data.archive_file.lambda_files.output_path
@@ -52,7 +52,7 @@ resource "aws_s3_bucket_object" "lambda_files" {
 
 resource "aws_lambda_function" "function" {
   function_name = "${var.function_name}"
-  s3_bucket = aws_s3_bucket.code_bucket.id
+  s3_bucket = aws_s3_bucket.code_bucket[0].id
   s3_key    = var.s3_key
 
   runtime = var.runtime
