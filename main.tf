@@ -61,4 +61,11 @@ resource "aws_lambda_function" "function" {
   source_code_hash = data.archive_file.lambda_files.output_base64sha256
 
   role = aws_iam_role.lambda_exec.arn
+
+  dynamic "environment" {
+      for_each = length(keys(var.env_vars)) == 0 ? [] : [true]
+      content {
+          variables = var.env_vars
+      }
+  }
 }

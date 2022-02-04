@@ -30,6 +30,14 @@ variable "s3_key" {
 
 }
 
+variable "env_vars" {
+
+    type = map(any)
+    default = {}
+    description = "A map of any extra enviorent variables"
+
+}
+
 output "function_arn" {
     value = aws_lambda_function.function.arn
 }
